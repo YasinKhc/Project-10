@@ -374,64 +374,60 @@ during the 2020 wildfires in the United States</h1>
 <section class="main-content">
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
-<p>This post is inspired by a scientific paper titled “Excess of
+<p>This post draws inspiration from the scientific paper titled “Excess of
 COVID-19 cases and deaths due to fine particulate matter exposure during
-the 2020 wildfires in the United States”. The paper explores the
-potential negative impacts of wildfires on COVID-19 cases and deaths in
-92 counties in the western United States. The authors used a Bayesian
-hierarchical zero-inflated negative binomial distributed lag model to
-establish a meaningful relationship between short-term exposure to fine
-particulate matter (<span class="math inline">\(\text{PM}_{2.5}\)</span>) and the percentage
-increase in the risk of COVID-19 deaths and cases. This model addressed
-several challenges that arose due to the nature of the data. In the
-following paragraphs, we will discuss the strengths and weaknesses of
-this study.</p>
-<p>The proposed approach in this study is appealing because it utilizes
-natural spline terms and random effects to introduce flexibility to the
-model and capture the true underlying relationships between the outcome
-of interest and explanatory variables. The authors also adjusted for
-important confounders, addressed heterogeneities between counties, and
-accounted for the incubation time as well as the time from symptom onset
-to death. Furthermore, a comprehensive sensitivity analysis was
-conducted to evaluate the overall uncertainty of the model. However, it
-is important to note that there may be cross-county variations that were
-not accounted for in this study. For instance, the proportion of the
-population aged 65 and above seems to be an essential confounding
-variable that was not included in the model. Additionally, studies of
-this kind should consider the stringency of containment and closure
-policies as well as health system policies. The Oxford COVID-19
-Government Response Tracker’s methodology could be employed to obtain
-the stringency of preventive measures in each county.</p>
+the 2020 wildfires in the United States.” The study investigates how
+wildfire-related air pollution may have influenced COVID-19 cases and
+deaths across 92 counties in the western United States. To quantify this
+relationship, the authors employed a Bayesian hierarchical zero-inflated
+negative binomial distributed lag model, linking short-term exposure to
+fine particulate matter (<span class="math inline">\(\text{PM}_{2.5}\)</span>) with
+increased risks of COVID-19 infections and fatalities. This modeling
+approach allowed the researchers to tackle challenges inherent to the
+data while extracting meaningful insights. In the following sections, we
+explore the study’s strengths, limitations, and key takeaways.</p>
+
+<p>The study’s methodology is particularly compelling due to its use of
+natural spline terms and random effects, which introduce flexibility and
+help capture complex relationships between the outcomes and explanatory
+variables. The authors also controlled for major confounders, accounted
+for inter-county variability, and incorporated both the incubation period
+and the time from symptom onset to death. In addition, a thorough
+sensitivity analysis was performed to evaluate the robustness of the
+findings. Nonetheless, some potential limitations remain. For example,
+cross-county differences—such as the proportion of residents aged 65 and
+older—were not included, despite their likely impact on COVID-19 risk.
+Moreover, studies of this nature should consider variations in containment
+measures and health system policies. The Oxford COVID-19 Government
+Response Tracker offers a framework for quantifying such policy stringency
+across counties.</p>
+
 </div>
 <div id="modeling-procedure" class="section level2">
 <h2>Modeling Procedure</h2>
-<p>The original study acknowledges that because of the COVID-19
-incubation period, it is expected that a change in COVID-19 deaths and
-cases might not occur immediately after exposure to <span class="math inline">\(\text{PM}_{2.5}\)</span>. Also, it is crucial to
-take into account the time from symptom onset to death from COVID-19 to
-obtain valid or nearly-valid results for the analysis of COVID-19
-deaths. Since the incubation period of COVID-19 ranges from 1 to 14
-days, we let the incubation time be equal to (1) its average of 6 days,
-and (2) its maximum of 14 days. We let the duration from symptom onset
-to death be equal to (1) its average of 18 days, and (2) half of its
-maximum of 8 weeks (i.e., 28 days). Our analytical model also include
-mobility, temperature, humidity, longitude, and latitude to adjust for
-potential confounding effects. Below, we explain our approach to solving
-this problem.</p>
-<p>We present a concise approach to modeling the COVID-19 deaths and
-cases without creating lagged variables. To be specific, rolling windows
-of lengths 18 and 28 days are considered for COVID-19 deaths, while
-rolling windows of lengths 6 and 14 days are used for COVID-19 cases.
-New variables are created, representing the rolling average of <span class="math inline">\(\text{PM}_{2.5}\)</span> over the corresponding
-time windows. The outcome associated with each average <span class="math inline">\(\text{PM}_{2.5}\)</span> is the number of COVID-19
-deaths or cases on the last day of the specific time window. By doing
-so, the effects of <span class="math inline">\(\text{PM}_{2.5}\)</span>
-are presented as a single value, avoiding the need to create multiple
-lagged variables. This approach can be useful when limited data
-precludes the use of highly parameterized models. After creating these
-variables, regular zero-inflated or zero-inflated mixed models can be
-fit. In this study, a Hurdle mixed-effects model with truncated
-generalized Poisson distribution is employed.</p>
+<p>The original study emphasizes that, due to the COVID-19 incubation
+period, changes in cases or deaths may not appear immediately after
+exposure to <span class="math inline">\(\text{PM}_{2.5}\)</span>. Accounting
+for the time from symptom onset to death is essential for obtaining
+accurate estimates. With incubation periods ranging from 1 to 14 days,
+we consider both the average (6 days) and maximum (14 days) durations.
+Similarly, the time from symptom onset to death is represented by both
+its average (18 days) and half of its maximum (28 days). Our analysis
+also adjusts for mobility, temperature, humidity, longitude, and latitude
+to control for potential confounders. The approach is detailed below.</p>
+
+<p>We adopt a streamlined method for modeling COVID-19 deaths and cases
+without constructing multiple lagged variables. Specifically, rolling
+windows of 18 and 28 days are used for deaths, while 6- and 14-day
+windows are applied to cases. Within each window, we calculate the
+rolling average of <span class="math inline">\(\text{PM}_{2.5}\)</span>, with the
+outcome defined as the number of deaths or cases on the final day of
+that window. This provides a single, interpretable effect estimate for
+<span class="math inline">\(\text{PM}_{2.5}\)</span> exposure, avoiding the
+complexity of numerous lagged variables. Once these variables are
+generated, standard zero-inflated or mixed models can be applied. In
+this study, a Hurdle mixed-effects model with a truncated generalized
+Poisson distribution is used to fit the data.</p>
 </div>
 <div id="import-the-dataset" class="section level2">
 <h2>Import the dataset</h2>
