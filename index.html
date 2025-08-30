@@ -417,15 +417,13 @@ to control for potential confounders. The approach is detailed below.</p>
 <p>We adopt a streamlined method for modeling COVID-19 deaths and cases
 without constructing multiple lagged variables. Specifically, rolling
 windows of 18 and 28 days are used for deaths, while 6- and 14-day
-windows are applied to cases. Within each window, we calculate the
+windows are used for cases. Within each window, we calculate the
 rolling average of <span class="math inline">\(\text{PM}_{2.5}\)</span>, with the
 outcome defined as the number of deaths or cases on the final day of
 that window. This provides a single, interpretable effect estimate for
 <span class="math inline">\(\text{PM}_{2.5}\)</span> exposure, avoiding the
-complexity of numerous lagged variables. Once these variables are
-generated, standard zero-inflated or mixed models can be applied. In
-this study, a Hurdle mixed-effects model with a truncated generalized
-Poisson distribution is used to appropriately model the count data.</p>
+complexity of numerous lagged variables. Once these variables are created, standard zero-inflated or mixed models can be applied. In
+this study, a Hurdle mixed-effects model with a truncated generalized Poisson distribution is used to appropriately model the count data.</p>
 </div>
 <div id="import-the-dataset" class="section level2">
 <h2>Import the dataset</h2>
